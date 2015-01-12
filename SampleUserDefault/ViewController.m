@@ -16,7 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
+    //UserDefaultObjectを用意する
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //保存されたデータを取り出す
+    NSString *memoStr = [defaults stringForKey:@"MEMO"];
+    self.myTextField.text = memoStr;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,4 +29,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark テキストフィールド周り
+- (IBAction)tapReturn:(id)sender {
+    
+    //UserDefaultObjectを用意する
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    //文字を保存
+    [defaults setObject:self.myTextField.text forKey:@"MEMO"];
+    
+    [defaults synchronize];
+    
+}
 @end
